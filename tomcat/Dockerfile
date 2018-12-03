@@ -2,17 +2,17 @@ FROM ubuntu:16.04
 
 MAINTAINER Manish Kumar <rishimanish123@gmail.com>
 
-ENV TOMCAT_VERSION 7.0.79
+ARG LOCALE
 
 RUN \
 apt-get -qq update && \
 apt-get install -y sudo curl wget locales
 
 # Set locales
-RUN locale-gen en_AU.UTF-8
-ENV LANG en_AU.UTF-8
-ENV LANGUAGE en_AU.UTF-8
-ENV LC_ALL en_AU.UTF-8
+RUN locale-gen $LOCALE.UTF-8
+ENV LANG $LOCALE.UTF-8
+ENV LANGUAGE $LOCALE.UTF-8
+ENV LC_ALL $LOCALE.UTF-8
 
 
 RUN \
@@ -32,7 +32,7 @@ rm -rf /var/cache/oracle-jdk8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 ENV TOMCAT_MAJOR 7
-ENV TOMCAT_VERSION 7.0.82
+ENV TOMCAT_VERSION 7.0.85
 # Get Tomcat
 ENV TOMCAT_TGZ_URLS \
     https://www.apache.org/dyn/closer.cgi?action=download&filename=tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz \
@@ -85,11 +85,5 @@ VOLUME "/opt/tomcat/webapps"
 ADD setenv.sh /opt/tomcat/bin
 WORKDIR /opt/tomcat
 
-
-#RUN wget --quiet --no-cookies https://bintray.com/nrgxnat/applications/download_file?file_path=xnat-web-1.7.0.war -O /opt/tomcat/xnat-web-1.7.0.war
-
 # Launch Tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
-#move xnat war to webapps 
-#RUN mv /opt/tomcat/xnat-web-1.7.0.war /opt/tomcat/webapps

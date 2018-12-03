@@ -19,7 +19,13 @@ This repository contains files to bootstrap XNAT deployment. The build creates f
 ## Usage
 
 
-1. Clone the [xnat-docker-compose](https://github.com/mbi-image/xnat-docker-compose) repository.
+1. Clone the [xnat-docker-compose](https://github.com/NrgXnat/xnat-docker-compose) repository.
+
+```
+$ git clone https://github.com/NrgXnat/xnat-docker-compose
+$ cd xnat-docker-compose
+```
+
 2. Configurations: The default configuration is sufficient to run the deployment. The following files can be modified if you want to change the default configuration
 
     - **docker-compose.yml**: How the different containers are deployed.
@@ -32,24 +38,26 @@ This repository contains files to bootstrap XNAT deployment. The build creates f
     - **prometheus/prometheus.yaml**: Prometheus configuration
 
 
-3. Download [latest XNAT WAR](https://bintray.com/nrgxnat/applications/XNAT/_latestVersion)
+3. Download [latest XNAT WAR](https://download.xnat.org)
+
+Download the latest xnat tomcat war file and place it in a webapps directory that you must create.
 
 ```
-wget --quiet --no-cookies https://bintray.com/nrgxnat/applications/download_file?file_path=xnat-web-1.7.4.war -O webapps/xnat.war
+$ mkdir webapps
+$ wget --quiet --no-cookies https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-1.7.4.1.war -O webapps/xnat.war
 ```
 
 4. Start the system
 
 ```
-$ cd xnat-docker-compose
-$ docker-compose -f docker-compose.yml up -d
+$ docker-compose up -d
 ```
 
 Note that at this point, if you go to `localhost/xnat` you won't see a working web application. It takes upwards of a minute
 to initialize the database, and you can follow progress by reading the docker compose log of the server:
 
 ```
-docker-compose logs -f --tail=20 xnat-web 
+docker-compose logs -f --tail=20 xnat-web
 Attaching to xnatdockercompose_xnat-web_1
 xnat-web_1    | INFO: Starting Servlet Engine: Apache Tomcat/7.0.82
 xnat-web_1    | Oct 24, 2017 3:17:02 PM org.apache.catalina.startup.HostConfig deployWAR
@@ -156,7 +164,7 @@ Logs are written on docker host for tomcat,nginx and postgres under following di
 Bring all the instances down (this will bring down all container and remove all the images) by running
 
 ```
-docker-compose down --rmi all 
+docker-compose down --rmi all
 ```
 
 #### Bring up instances
@@ -180,4 +188,3 @@ docker-compose up -d
 
 
      Click on any subcontainer to view its metrics
-
