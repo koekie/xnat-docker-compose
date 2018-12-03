@@ -2,3 +2,5 @@
 /plugins
 /webapps
 /postgres-data
+/nginx/certs/*.key
+/nginx/certs/*.crt
