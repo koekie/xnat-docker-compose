@@ -47,6 +47,13 @@ $ mkdir webapps
 $ wget --quiet --no-cookies https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-1.7.4.1.war -O webapps/xnat.war
 ```
 
+If you want to get the bleeding edge please:
+```
+$ mkdir webapps
+$ wget --quiet --no-cookies https://ci.xnat.org/job/XNAT%20Web/lastSuccessfulBuild/artifact/build/libs/xnat-web-1.7.5.war -P webapps/xnat.war
+```
+
+
 4. Start the system
 
 ```
