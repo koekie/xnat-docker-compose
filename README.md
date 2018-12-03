@@ -53,7 +53,6 @@ $ mkdir webapps
 $ wget --quiet --no-cookies https://ci.xnat.org/job/XNAT%20Web/lastSuccessfulBuild/artifact/build/libs/xnat-web-1.7.5.war -P webapps/xnat.war
 ```
 
-
 4. Start the system
 
 ```
