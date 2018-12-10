@@ -44,14 +44,25 @@ Download the latest xnat tomcat war file and place it in a webapps directory tha
 
 ```
 $ mkdir webapps
-$ wget --quiet --no-cookies https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-1.7.4.1.war -O webapps/xnat.war
+$ wget --quiet --no-cookies https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-1.7.4.1.war -O webapps/ROOT.war
 ```
 
 If you want to get the bleeding edge please:
 ```
 $ mkdir webapps
-$ wget --quiet --no-cookies https://ci.xnat.org/job/XNAT%20Web/lastSuccessfulBuild/artifact/build/libs/xnat-web-1.7.5.war -P webapps/xnat.war
+$ wget --quiet --no-cookies https://ci.xnat.org/job/XNAT%20Web/lastSuccessfulBuild/artifact/build/libs/xnat-web-1.7.5.war -O webapps/ROOT.war
 ```
+
+>**NOTE**
+>You can download the war file to something else than ```ROOT.war``` if you want to have the xnat-web app in its own namespace.
+
+If you want to include plugins for XNAT, you can download them to the ```plugins``` directory. Here is an example for the openid-connect plugin:
+```
+$ mkdir plugins
+$ wget --quiet --no-cookies "http://dev.redboxresearchdata.com.au/nexus/service/local/artifact/maven/redirect?r=snapshots&g=au.edu.qcif.xnat.openid&a=openid-auth-plugin&v=LATEST&e=jar" -O openid-auth-plugin-SNAPSHOT.jar
+```
+For this you also have to provide a config file: ```auth-provider.properties```.
+
 
 4. Start the system
 
@@ -59,7 +70,7 @@ $ wget --quiet --no-cookies https://ci.xnat.org/job/XNAT%20Web/lastSuccessfulBui
 $ docker-compose up -d
 ```
 
-Note that at this point, if you go to `localhost/xnat` you won't see a working web application. It takes upwards of a minute
+Note that at this point, if you go to `http://localhost` you won't see a working web application. It takes upwards of a minute
 to initialize the database, and you can follow progress by reading the docker compose log of the server:
 
 ```
@@ -87,7 +98,7 @@ xnat-web_1    | Oct 24, 2017 3:18:27 PM org.apache.catalina.startup.Catalina sta
 xnat-web_1    | INFO: Server startup in 84925 ms
 ```
 
-Your XNAT will soon be available at http://localhost/xnat.
+Your XNAT will soon be available at http://localhost.
 
 ## Installing plugins and pipeline
 Run add-plugins.sh script
